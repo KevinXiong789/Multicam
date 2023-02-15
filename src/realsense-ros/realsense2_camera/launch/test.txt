@@ -1,0 +1,18 @@
+<!-- publish spatial connection between cameras -->
+	<node pkg="realsense2_camera" type="set_cams_transforms.py" name="setcams" args="0 0 0 -90 0 0">
+	<!--<node pkg="realsense2_camera" type="set_cams_transforms.py" name="setcams">
+		<arg name="camL" value="cam_1_link"/>
+		<arg name="camR" value="cam_2_link"/>
+		<arg name="x" value="0"/>
+		<arg name="y" value="0"/>
+		<arg name="z" value="0"/>
+		<arg name="azimuth" value="-90"/>
+		<arg name="pitch" value="0"/>
+		<arg name="roll" value="0"/>-->
+	</node>
+		
+	
+	
+	<!-- open rviz -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense2_camera)/config/mutlicamRVIZ.rziv" required="true" />
+	<!--<node name="rviz" pkg="rviz" type="rviz" output="screen" />-->

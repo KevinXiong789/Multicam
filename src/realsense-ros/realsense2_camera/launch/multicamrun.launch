@@ -1,0 +1,57 @@
+<launch>
+	<arg name="cam1name" default="cam_1" />
+	<arg name="cam2name" default="cam_2" />
+	<arg name="cam1nr" default="117322070913" />
+	<arg name="cam2nr" default="838212073332" />
+
+	<!-- run the first camera with launch file -->
+	<include file="$(find realsense2_camera)/launch/rs_camera.launch">
+		<arg name="camera" value="$(arg cam1name)" />
+		<arg name="serial_no" value="$(arg cam1nr)" />
+		<arg name="filters" value="pointcloud" />
+	</include>
+
+	<!-- run the second camera with launch file -->
+	<include file="$(find realsense2_camera)/launch/rs_camera.launch">
+		<arg name="camera" value="$(arg cam2name)" />
+		<arg name="serial_no" value="$(arg cam2nr)" />
+		<arg name="filters" value="pointcloud" />
+	</include>
+	
+	<!-- publish spatial connection between cameras -->
+	<!--<node pkg="realsense2_camera" type="set_cams_transforms.py" name="setcams" args="0 0 0 -90 0 0">-->
+	<!--<node pkg="realsense2_camera" type="set_cams_transforms.py" name="setcams">
+		<arg name="camL" value="cam_1_link"/>
+		<arg name="camR" value="cam_2_link"/>
+		<arg name="x" value="0"/>
+		<arg name="y" value="0"/>
+		<arg name="z" value="0"/>
+		<arg name="azimuth" value="-90"/>
+		<arg name="pitch" value="0"/>
+		<arg name="roll" value="0"/>-->
+	
+	<arg name="cam1" value="cam_1_link"/>
+	<arg name="cam2" value="cam_2_link"/>
+	<arg name="x" value="0"/>
+	<arg name="y" value="0"/>
+	<arg name="z" value="0"/>
+	<arg name="yaw" value="-90"/>
+	<arg name="pitch" value="0"/>
+	<arg name="roll" value="0"/>
+	<node pkg="realsense2_camera" type="set_cams_transforms_neu.py" name="set_cams_transforms" >
+		<param name="cam1" value="$(arg cam1)"/>
+		<param name="cam2" value="$(arg cam2)"/>
+		<param name="x" value="$(arg x)"/>
+		<param name="y" value="$(arg y)"/>
+		<param name="z" value="$(arg z)"/>
+		<param name="yaw" value="$(arg yaw)"/>
+		<param name="pitch" value="$(arg pitch)"/>
+		<param name="roll" value="$(arg roll)"/>
+	</node>
+	
+	
+	<!-- open rviz -->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find realsense2_camera)/config/rviz_home.rviz" required="true" />
+	<!--<node name="rviz" pkg="rviz" type="rviz" output="screen" />-->
+
+</launch>

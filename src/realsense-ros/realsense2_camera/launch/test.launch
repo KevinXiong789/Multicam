@@ -1,0 +1,21 @@
+<launch>
+	<arg name="cam1" value="cam_1_link"/>
+	<arg name="cam2" value="cam_2_link"/>
+	<arg name="x" value="0"/>
+	<arg name="y" value="0"/>
+	<arg name="z" value="0"/>
+	<arg name="yaw" value="-90"/>
+	<arg name="pitch" value="0"/>
+	<arg name="roll" value="0"/>
+	<node pkg="realsense2_camera" type="set_cams_transforms.py" name="set_cams_transforms" >
+		<param name="cam1" value="$(arg cam1)"/>
+		<param name="cam2" value="$(arg cam2)"/>
+		<param name="x" value="$(arg x)"/>
+		<param name="y" value="$(arg y)"/>
+		<param name="z" value="$(arg z)"/>
+		<param name="yaw" value="$(arg yaw)"/>
+		<param name="pitch" value="$(arg pitch)"/>
+		<param name="roll" value="$(arg roll)"/>
+	</node>
+
+</launch>
